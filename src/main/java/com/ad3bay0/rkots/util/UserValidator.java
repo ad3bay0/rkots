@@ -4,10 +4,11 @@ import com.ad3bay0.rkots.models.User;
 import com.ad3bay0.rkots.security.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-
+@Service
 public class UserValidator implements Validator {
 
     @Autowired
