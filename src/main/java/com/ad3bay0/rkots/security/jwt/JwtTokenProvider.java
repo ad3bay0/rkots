@@ -4,12 +4,10 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.UUID;
 
-import com.ad3bay0.rkots.security.UserPrincipal;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -28,16 +26,15 @@ public class JwtTokenProvider {
     private int jwtExpirationInMs;
 
 
-    public String generateToken(Authentication authentication) throws ParseException {
+    public String generateToken(UserDetails userDetails) throws ParseException {
 
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
         Date now = new Date();
 
         Date expiry = new Date(now.getTime()+jwtExpirationInMs);
 
         return Jwts.builder()
-                .setSubject(userPrincipal.getId().toString())
+                .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(expiry)
                 .signWith(SignatureAlgorithm.HS512,jwtSecret)

@@ -21,6 +21,7 @@ spring:
     hibernate:
         ddl-auto: update
     show-sql: false
+    generate-ddl: true
     
   jackson:
     serialization:

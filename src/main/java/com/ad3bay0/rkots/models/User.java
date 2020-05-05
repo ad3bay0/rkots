@@ -1,21 +1,19 @@
 package com.ad3bay0.rkots.models;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +21,7 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
+@Table(name = "users")
 public class User {
 
     @Id
@@ -31,9 +30,10 @@ public class User {
 
     private String fullName;
 
-    @Column(unique = true)
-    @NotBlank
-	@Size(max = 20)
+    @NotNull
+	@Size(max=20,min=2)
+	@Column(unique=true)
+	@NotBlank (message = "Username is mandatory")
 	private String username;
 
     @Column(unique = true)
@@ -42,14 +42,10 @@ public class User {
 	@Email
 	private String email;
 
-	@NotBlank
-	@Size(max = 120)
+	@NotNull
+	@JsonIgnore
+	@Column
+	@NotBlank (message = "Password is mandatory")
 	private String password;
-
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "user_roles", 
-				joinColumns = @JoinColumn(name = "user_id"), 
-				inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>();
     
 }
