@@ -8,7 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class UserValidator implements Validator {
 
     @Autowired
@@ -28,7 +32,9 @@ public class UserValidator implements Validator {
         if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
             errors.rejectValue("username", "Size.userForm.username");
         }
-        if (!userService.findByUsername(user.getUsername()).isPresent()) {
+        boolean duplicate = userService.findByUsername(user.getUsername()).isPresent();
+
+        if (duplicate) {
 
             errors.rejectValue("username", "Duplicate.userForm.username");
         }

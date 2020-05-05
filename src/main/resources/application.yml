@@ -7,6 +7,11 @@ spring:
   profiles:
     active: ${ACTIVE_PROFILE}
 
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+
   datasource:
     url: ${DATABASE_URL}
     username: ${POSTGRES_USER}

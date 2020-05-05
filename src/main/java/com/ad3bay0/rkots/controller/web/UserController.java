@@ -44,7 +44,7 @@ public class UserController {
 
         securityService.login(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:/welcome";
+        return "redirect:/dashboard";
     }
 
 
@@ -59,8 +59,8 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping({"/", "/welcome"})
-    public String welcome(Model model) {
-        return "welcome";
+    @GetMapping({"/", "/dashboard"})
+    public String dashboard(Model model) {
+        return "dashboard";
     }
 }
