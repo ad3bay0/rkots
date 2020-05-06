@@ -26,6 +26,19 @@
             </div>
             <div class="panel-body">
                  <p class="user-message-text text-center" th:utext="${walletBalance}"></p>
+                 
+                 <div th:each="quote: ${quotes}" class="card-deck">
+                  <div class="card">
+  <h3 th:text="${quote.companyName}"></h3>
+  <p th:text="${quote.latestPrice}"></p>
+        <p></p>
+       <p><button>Purchase Stock</button></p>
+</div> 
+</div>
+
+
+  
+
             </div>
         </div>
     </div>

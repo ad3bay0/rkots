@@ -1,0 +1,40 @@
+server:
+  port: ${SERVER_PORT}
+
+spring:
+  application:
+    name: ${APPLICATION_NAME}
+  profiles:
+    active: ${ACTIVE_PROFILE}
+
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: ${DATABASE_DRIVER}
+    initialization-mode: always
+  
+  jpa:
+    properties:
+      hibernate:
+        dialect : org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+        ddl-auto: update
+    show-sql: false
+    generate-ddl: true
+    
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: true
+    time-zone: UTC
+
+logging:
+  level:
+    com.ad3bay0.rkots: WARN
+
+app:
+  jwt-secret: ${APP_JWT_SECRET}
+  jwt-expiration: ${APP_JWT_EXPIRATION}
+
+iex:
+  key: ${IEX_KEY}

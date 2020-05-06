@@ -1,33 +1,8 @@
-server:
-  port: ${SERVER_PORT}
-
 spring:
-  application:
-    name: ${APPLICATION_NAME}
-  profiles:
-    active: ${ACTIVE_PROFILE}
-
   datasource:
-    url: ${DATABASE_URL}
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASSWORD}
-    driver-class-name: ${DATABASE_DRIVER}
-    initialization-mode: always
-  
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: testdb
+    password: shhdhh27sk?
   jpa:
-    properties:
-      hibernate:
-        dialect : org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-        ddl-auto: update
-    show-sql: false
-    generate-ddl: true
-    
-  jackson:
-    serialization:
-      WRITE_DATES_AS_TIMESTAMPS: true
-    time-zone: UTC
-
-app:
-  jwt-secret: ${APP_JWT_SECRET}
-  jwt-expiration: ${APP_JWT_EXPIRATION}
+    database-platform: org.hibernate.dialect.H2Dialect
