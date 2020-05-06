@@ -6,3 +6,10 @@ spring:
     password: shhdhh27sk?
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+
+app:
+  jwt-secret: ${APP_JWT_SECRET}
+  jwt-expiration: ${APP_JWT_EXPIRATION}
+
+iex:
+  key: ${IEX_KEY}
