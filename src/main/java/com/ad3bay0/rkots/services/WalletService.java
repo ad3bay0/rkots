@@ -8,6 +8,7 @@ import com.ad3bay0.rkots.exceptions.InsufficientBalanceInWalletException;
 import com.ad3bay0.rkots.exceptions.UserAlreadyHasWalletException;
 import com.ad3bay0.rkots.exceptions.WalletIdDoesNotExistException;
 import com.ad3bay0.rkots.models.Transaction;
+import com.ad3bay0.rkots.models.User;
 import com.ad3bay0.rkots.models.Wallet;
 
 public interface WalletService {

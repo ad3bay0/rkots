@@ -50,9 +50,6 @@ public class User extends AuditModel {
 	@NotBlank (message = "Password is mandatory")
 	private String password;
 
-	@Transient
-	private String passwordConfirm;
-
 	@ManyToMany(mappedBy = "users")
 	private Set<Role> roles;
 
