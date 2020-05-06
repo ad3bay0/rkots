@@ -16,7 +16,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "roles")
 @Getter @Setter
-public class Role {
+public class Role extends AuditModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
