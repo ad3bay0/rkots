@@ -9,10 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class UserValidator implements Validator {
 
     @Autowired

@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Controller
 public class UserController {
 
@@ -81,7 +79,7 @@ public class UserController {
     }
 
     @GetMapping("/user/dashboard")
-    public String dashboard(Model model) throws IEXApiException {
+    public String dashboard(Model model) throws {
        
             List<QuoteDto> quotes = quoteApiService.getDefaultQuotes();
 
