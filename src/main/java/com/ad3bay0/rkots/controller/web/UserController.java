@@ -79,7 +79,7 @@ public class UserController {
     }
 
     @GetMapping("/user/dashboard")
-    public String dashboard(Model model) throws {
+    public String dashboard(Model model) {
        
             List<QuoteDto> quotes = quoteApiService.getDefaultQuotes();
 
