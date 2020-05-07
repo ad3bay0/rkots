@@ -17,8 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-
-        log.error("unauthorized error. Message - {}",e.getMessage());
+        
         httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,e.getMessage());
 
     }

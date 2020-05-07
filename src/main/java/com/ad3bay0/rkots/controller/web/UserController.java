@@ -82,9 +82,6 @@ public class UserController {
     public String dashboard(Model model) {
        
             List<QuoteDto> quotes = quoteApiService.getDefaultQuotes();
-
-            quotes.forEach(x->{System.out.println(x.toString());});
-
         
        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByUsername(auth.getName()).get();
