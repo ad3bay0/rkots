@@ -51,6 +51,7 @@
             <th> Type </th>
             <th> Description </th>
             <th> Amount</th>
+            <th>Date</th>
         </tr>
     </thead>
     <tr th:if="${transactions.empty}">
@@ -60,6 +61,7 @@
             <td><span th:text="${transaction.type}"> Description </span></td>
             <td><span th:text="${transaction.description}"> Description </span></td>
             <td><span th:text="${#numbers.formatCurrency(transaction.amount)}"> Amount </span></td>
+            <td><span th:text="${#dates.format(transaction.createdAt, 'dd-MM-yyyy HH:mm')}"></span></td>
         </tr>
   </table>
 </div>
