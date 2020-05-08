@@ -33,10 +33,10 @@ public class User extends AuditModel {
 
     private String fullName;
 
-    @NotNull
+	@NotNull
+	@NotBlank (message = "Username is mandatory")
 	@Size(max=20,min=2)
 	@Column(unique=true)
-	@NotBlank (message = "Username is mandatory")
 	private String username;
 
     @Column(unique = true)

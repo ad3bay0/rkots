@@ -6,37 +6,63 @@
     <title>Dashboard</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/dashboard.css}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 <div class="container">
 
-    <form th:action="@{/logout}" method="get">
-        <button class="btn btn-md btn-danger btn-block" name="registration"
-                type="Submit">Logout
-        </button>
-    </form>
+     <span style="float: right;"><a th:href="@{/logout}">Logout</a></span>
 
     <div class="panel-group" style="margin-top:40px">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
+        <div class="panel panel-primary" >
+            <div class="panel-heading" style="background-color: #9C27B0">
                 <span th:utext="${username}"></span>
+               
             </div>
             <div class="panel-body">
-                 <p class="user-message-text text-center" th:utext="${walletBalance}"></p>
-                 
-                 <div th:each="quote: ${quotes}" class="card-deck">
+                <span class="user-message-text">Wallet Balance: </span> <span class="user-message-text" th:utext="${#numbers.formatCurrency(walletBalance)}"></span>
+                 <h4><div class="text-success" th:utext="${message}"></div></h2>
+                <p class="section-text">Featured Stocks</p>
+ <div class="row">
+                 <div th:each="quote: ${quotes}" class="col-xs-6 col-md-3 text-center">
                   <div class="card">
+              
   <h3 th:text="${quote.companyName}"></h3>
-  <p th:text="${quote.latestPrice}"></p>
+  <p th:text="${#numbers.formatCurrency(quote.latestPrice)}"></p>
         <p></p>
-       <p><button>Purchase Stock</button></p>
+       <p> <form method="POST" th:action="@{/purchase}">
+    <input type="hidden" name="quoteId" id="quoteId" th:value="${quote.id}" />
+    <button type="submit" name="submit" value="value">Purchase Stock</button>
+</form></p>
+       
 </div> 
 </div>
+ </div>
 
 
+
+<div class="panel panel-default">
+  <div class="panel-heading">Transaction History</div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead>
+        <tr>
+            <th> Type </th>
+            <th> Description </th>
+            <th> Amount</th>
+        </tr>
+    </thead>
+    <tr th:if="${transactions.empty}">
+            <td colspan="2"> No Transaction History </td>
+        </tr>
+        <tr th:each="transaction : ${transactions}">
+            <td><span th:text="${transaction.type}"> Description </span></td>
+            <td><span th:text="${transaction.description}"> Description </span></td>
+            <td><span th:text="${#numbers.formatCurrency(transaction.amount)}"> Amount </span></td>
+        </tr>
+  </table>
+</div>
   
 
             </div>

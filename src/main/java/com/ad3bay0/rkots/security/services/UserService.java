@@ -19,6 +19,8 @@ public interface UserService {
 
     String userWalletBalance(User user) throws WalletIdDoesNotExistException ;
 
+    User getCurrentlyLoggedInUser();
+
 
 
 }

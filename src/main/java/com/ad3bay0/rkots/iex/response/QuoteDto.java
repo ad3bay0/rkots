@@ -1,24 +1,20 @@
 package com.ad3bay0.rkots.iex.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import java.math.BigDecimal;
+import java.util.UUID;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
+import lombok.Data;
+
+@Data
 public class QuoteDto {
 
+    private UUID id;
     private String symbol;
     private String companyName;
     private String primaryExchange;
     private String calculationPrice;
-    private int latestPrice;
-    private double previousClose;
+    private BigDecimal latestPrice;
+    private BigDecimal previousClose;
     private String latestSource;
     
 }

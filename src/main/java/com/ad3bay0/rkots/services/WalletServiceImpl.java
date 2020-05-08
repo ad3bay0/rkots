@@ -5,14 +5,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.print.DocFlavor.STRING;
 import javax.transaction.Transactional;
 
 import com.ad3bay0.rkots.exceptions.InsufficientBalanceInWalletException;
 import com.ad3bay0.rkots.exceptions.UserAlreadyHasWalletException;
 import com.ad3bay0.rkots.exceptions.WalletIdDoesNotExistException;
+import com.ad3bay0.rkots.models.Quote;
 import com.ad3bay0.rkots.models.Transaction;
 import com.ad3bay0.rkots.models.User;
 import com.ad3bay0.rkots.models.Wallet;
+import com.ad3bay0.rkots.repository.QuoteRepository;
 import com.ad3bay0.rkots.repository.TransactionRepository;
 import com.ad3bay0.rkots.repository.UserRepository;
 import com.ad3bay0.rkots.repository.WalletRepository;
@@ -33,6 +36,9 @@ public class WalletServiceImpl implements WalletService {
 
     @Autowired
     TransactionRepository transactionRepository;
+
+    @Autowired
+    QuoteRepository quoteRepository;
 
     @Override
     public Wallet createWallet(UUID userId) throws InsufficientBalanceInWalletException, UserAlreadyHasWalletException {
@@ -61,12 +67,11 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    @Transactional
     public Wallet buyFromWallet(UUID walletId, BigDecimal amount, String type)
             throws InsufficientBalanceInWalletException, WalletIdDoesNotExistException {
         Optional<Wallet> wallet = walletRepository.findById(walletId);
 
-        if (wallet.isPresent()) {
+        if (!wallet.isPresent()) {
 
             throw new WalletIdDoesNotExistException(walletId);
         }
@@ -83,9 +88,9 @@ public class WalletServiceImpl implements WalletService {
 
         Wallet updatedWallet = walletRepository.save(processWallet);
 
-        if ("BUY".equals(type)) {
-            saveTransaction(AppConstants.BUY, amount, AppConstants.BUY_DESCRIPTION, updatedWallet);
-        }
+        
+            saveTransaction(type, amount, AppConstants.BUY_DESCRIPTION, updatedWallet);
+    
         return updatedWallet;
     }
 
@@ -95,7 +100,7 @@ public class WalletServiceImpl implements WalletService {
 
         Optional<Wallet> wallet = walletRepository.findById(walletId);
 
-        if (wallet.isPresent()) {
+        if (!wallet.isPresent()) {
 
             throw new WalletIdDoesNotExistException(walletId);
         }
@@ -134,6 +139,22 @@ public class WalletServiceImpl implements WalletService {
                 .wallet(wallet).build();
 
         transactionRepository.save(transaction);
+    }
+
+    @Override
+    @Transactional
+    public Wallet buyStockFromWallet(User user, Quote quote)
+            throws InsufficientBalanceInWalletException, WalletIdDoesNotExistException {
+        
+        return buyFromWallet(user.getWallet().getId(), quote.getLatestPrice(), quote.getCompanyName());
+    }
+
+    @Override
+    public Wallet buyStockFromWallet(User user, String quoteId) throws Exception{
+
+        Quote quote = quoteRepository.getOne(UUID.fromString(quoteId));
+
+        return buyFromWallet(user.getWallet().getId(), quote.getLatestPrice(), quote.getCompanyName());
     }
 
 }

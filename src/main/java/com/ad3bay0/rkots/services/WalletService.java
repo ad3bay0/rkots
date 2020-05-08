@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.ad3bay0.rkots.exceptions.InsufficientBalanceInWalletException;
 import com.ad3bay0.rkots.exceptions.UserAlreadyHasWalletException;
 import com.ad3bay0.rkots.exceptions.WalletIdDoesNotExistException;
+import com.ad3bay0.rkots.models.Quote;
 import com.ad3bay0.rkots.models.Transaction;
 import com.ad3bay0.rkots.models.User;
 import com.ad3bay0.rkots.models.Wallet;
@@ -24,5 +25,10 @@ public interface WalletService {
             throws WalletIdDoesNotExistException;
 
     public List<Transaction> getTransactions(UUID walletId, Integer numberOfRecords) throws WalletIdDoesNotExistException;
+
+    public Wallet buyStockFromWallet(User user, Quote quote)
+            throws WalletIdDoesNotExistException, InsufficientBalanceInWalletException;
+
+	public Wallet buyStockFromWallet(User user, String quoteId) throws Exception;
 
 }
