@@ -1,6 +1,6 @@
 # rKots
 ## stock trading playground
-
+demo url: https://desolate-woodland-86471.herokuapp.com/
 ## Running the application
 
 - Package
